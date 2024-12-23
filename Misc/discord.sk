@@ -1,0 +1,4 @@
+options:
+	tooltip: &fThis will bring you to our discord
+	message: &3&lServer Name&8 |&7 Click here to join our &3&lDISCORD
+	link: YOUR-DISCORD-LINK
