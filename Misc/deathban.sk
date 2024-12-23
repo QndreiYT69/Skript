@@ -1,3 +1,8 @@
+#REQUIEREMENTS:
+
+#https://github.com/SkQuery/SkQuery/releases
+#https://dev.bukkit.org/projects/skrayfall
+
 	on death:
     add 1 to {deaths::%victim%}
     if {deaths::%victim%} is greater than 9:
