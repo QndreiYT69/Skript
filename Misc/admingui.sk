@@ -1,0 +1,20 @@
+#REQUIEREMENTS:
+
+#https://github.com/SkriptHub/SkBee/
+
+
+command /admin:
+    permission: op
+    permission message: "&4[Myock] &4This command does not exist!"
+    trigger:
+        set metadata tag "gui" of player to chest inventory with 4 rows named "&4Admin GUI"
+        set slot 20 of metadata tag "gui" of player to red_concrete named "&4Gamemode" with lore "&5Admin GUI" 
+        open (metadata tag "gui" of player) to player
+on inventory click:
+    if event-inventory = (metadata tag "gui" of player):
+        cancel event
+        if index of event-slot is 20:
+            set metadata tag "gui" of player to chest inventory with 4 rows named "&4Admin GUI"
+        set slot 15 of metadata tag "gui" of player to red_concrete named "&4Gamemode Creative" with lore "&5Admin GUI" to run
+        set player's gamemode to creative
+        close player's inventory
