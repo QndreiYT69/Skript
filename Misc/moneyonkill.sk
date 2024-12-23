@@ -1,0 +1,130 @@
+on first join:
+	if {coin::%uuid of player%} isn't set:
+		set {coin::%uuid of player%} to 0
+
+on death:
+	if attacker is a player:
+		if the victim is a player:
+			add 1 to {coin::%attacker%}
+			send action bar "&7You have killed &e%player%&7 we have added &e1&7 point!" to attacker
+			send "&7You have been killed by &e%attacker%" to player
+
+function shopGUI(t: String, p: Player):
+	if {_t} is "shop":
+		open virtual chest inventory with size 6 named "Shop &6$&e%{coin::%{_p}%}%" to {_p}
+		format gui slot (all integers between 0 and 8 and 9 and 17 and 18 and 26 and 27 and 35 and 36 and 44, and all integers between 45 and 53) of {_p} with black stained glass pane named "&f" with lore "&f"
+		format gui slot 10 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 11 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 12 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 13 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 14 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 15 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 16 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 19 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 20 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 21 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 22 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 23 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 24 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 25 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 28 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 29 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 30 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 31 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 32 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 33 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 34 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 37 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 38 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 39 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 40 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 41 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 42 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+		format gui slot 43 of {_p} with red wool named "" with lore "" to run using "left" click:
+			make console execute command "" and ""
+
+
+command /point [<text>] [<integer>] [<offline player>]:
+	permission: point.command
+	permission message: &cYou currently don't have access to this command. Contact your adminitrator if this is a mistake!
+	trigger:
+		if arg-1 isn't set:
+			send "&8&m---------&8»&6&l Balance&8 «&m---------"
+			send "&7You currently have &6$&e%{coin::%player%}%&7 points"
+			send "&8&m------------------------------"
+		if arg 1 is "shop":
+			if arg 2 isn't set:
+				if arg 3 isn't set:
+					shopGUI("shop", player)
+		if player has permission "points.*":
+			if arg 1 is "add":
+				if arg 2 is set:
+					if arg 3 is set:
+						add arg-2 to {coin::%arg-3%}
+						send "&6$&e%arg-2%&7 has been added to your balance"
+			else if arg 1 is "remove":
+				if arg 2 is set:
+					if arg 3 is player:
+						subtract arg-2 from {coin::%arg-3%}
+						send "&4$&c%arg-2%&7 has been removed from your balance"
+			else if arg 1 is "info":
+				if arg 2 isn't set:
+					if arg 3 is set:
+						send "&6&l%arg-3%&7 currently has a total of &e%{coin::%arg-3%}%&7 points"
+			else if arg 1 is "clear":
+				if arg 2 isn't set:
+					if arg 3 isn't set:
+						delete {coin::*}
+						set {coin::%uuid of player%} to 0
+						send "&7Your balance was cleared by staff to &4$&c%{coin::%uuid of player%}%"
+# ###############
+# This section is to have the console execute the command
+
+		else if command sender is console:
+			if arg 1 is "add":
+				if arg 2 is set:
+					if arg 3 is set:
+						add arg-2 to {coin::%arg-3%}
+						send "&6$&e%arg-2%&7 has been added to your balance"
+			else if arg 1 is "remove":
+				if arg 2 is set:
+					if arg 3 is player:
+						subtract arg-2 from {coin::%arg-3%}
+						send "&4$&c%arg-2%&7 has been removed from your balance"
+			else if arg 1 is "info":
+				if arg 2 isn't set:
+					if arg 3 is set:
+						send "&6&l%arg-3%&7 currently has a total of &e%{coin::%arg-3%}%&7 points"
+			else if arg 1 is "clear":
+				if arg 2 isn't set:
+					if arg 3 isn't set:
+						delete {coin::*}
+						set {coin::%uuid of player%} to 0
+						send "&7Your balance was cleared by staff to &4$&c%{coin::%uuid of player%}%"
