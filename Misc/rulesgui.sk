@@ -1,0 +1,86 @@
+#Rules GUI made by QndreiYT_69
+#Commands:
+
+#/chatrules
+#/pvprules
+#/gamerules
+
+
+command /rules:
+  trigger:
+    set {_gui} to a new chest inventory with 3 rows named "&6&lRules Categories"
+    set {_bg} to 0
+    loop 27 times:
+      if slot {_bg} of {_gui} is air:
+        set slot {_bg} of {_gui} to black stained glass pane named " "
+      add 1 to {_bg}
+    set slot 10 of {_gui} to book named "&e&lGame Rules" with lore "&7Click to view all gameplay-related rules."
+    set slot 13 of {_gui} to diamond sword named "&c&lPvP Rules" with lore "&7Click to view all rules related to combat and PvP."
+    set slot 16 of {_gui} to paper named "&b&lChat Rules" with lore "&7Click to view all rules for chatting and communication."
+    open {_gui} to player
+on inventory click:
+  if name of event-inventory is "&6&lRules Categories":
+    cancel event
+    if clicked slot is 10:
+      execute player command "gamerules"
+    if clicked slot is 13:
+      execute player command "pvprules"
+    if clicked slot is 16:
+      execute player command "chatrules"
+command /gamerules:
+  trigger:
+    set {_gui} to new chest inventory with 4 rows named "&6&lGame Rules"
+    set {_bg} to 0
+    loop 54 times:
+      if slot {_bg} of {_gui} is air:
+        set slot {_bg} of {_gui} to black stained glass pane named " "
+      add 1 to {_bg}
+    set slot 10 of {_gui} to paper named "&d&lNo Boosting Players" with lore "&8&m------------------------------", "&7Helping players gain unfair advantages is prohibited.", "&7Examples: Excessive item sharing or resource gifting.", "&cPunishment: &7Item removal or temporary ban."
+    set slot 12 of {_gui} to paper named "&d&lNo Hacking or Cheating" with lore "&8&m------------------------------", "&7Using hacks, cheats, or unfair mods is forbidden.", "&7Examples: X-ray or fly hacks.", "&cPunishment: &7Permanent ban."
+    set slot 14 of {_gui} to paper named "&d&lNo Bug Exploiting" with lore "&8&m------------------------------", "&7Exploiting glitches for personal gain is not allowed.", "&7Report any bugs to staff immediately.", "&cPunishment: &7Warning or ban based on severity."
+    set slot 16 of {_gui} to paper named "&d&lFollow Server Rules" with lore "&8&m------------------------------", "&7All server-wide rules apply during gameplay.", "&7This ensures fairness for everyone.", "&cPunishment: &7Varies based on infraction."
+    set slot 31 of {_gui} to barrier named "&b&lGo Back" with lore "&7Click to return to the categories menu."
+    open {_gui} to player
+on inventory click:
+  if name of event-inventory is "&6&lGame Rules":
+    cancel event
+    if clicked slot is 31:
+      execute player command "rules"
+command /pvprules:
+  trigger:
+    set {_gui} to new chest inventory with 4 rows named "&c&lPvP Rules"
+    set {_bg} to 0
+    loop 54 times:
+      if slot {_bg} of {_gui} is air:
+        set slot {_bg} of {_gui} to black stained glass pane named " "
+      add 1 to {_bg}
+    set slot 10 of {_gui} to paper named "&d&lMax Team Size: 4 Players" with lore "&8&m------------------------------", "&7Teams can only have up to 4 members.", "&7Larger alliances or excessive teaming is not allowed.", "&cPunishment: &7Warning or kick."
+    set slot 12 of {_gui} to paper named "&d&lNo Spawn Trapping" with lore "&8&m------------------------------", "&7Camping or trapping players at spawn is prohibited.", "&7Allow fair chances for newly spawned players.", "&cPunishment: &7Temporary ban."
+    set slot 14 of {_gui} to paper named "&d&lNo Alt Farming" with lore "&8&m------------------------------", "&7Using alternate accounts for advantages is not allowed.", "&7Examples: Farming kills, resources, or perks.", "&cPunishment: &7Alt account ban and main account warning."
+    set slot 16 of {_gui} to paper named "&d&lNo Excessive Targeting" with lore "&8&m------------------------------", "&7Consistently targeting the same player is not allowed.", "&7Let everyone enjoy the game.", "&cPunishment: &7Warning or temporary ban."
+    set slot 31 of {_gui} to barrier named "&b&lGo Back" with lore "&7Click to return to the categories menu."
+    open {_gui} to player
+on inventory click:
+  if name of event-inventory is "&c&lPvP Rules":
+    cancel event
+    if clicked slot is 31:
+      execute player command "rules"
+command /chatrules:
+  trigger:
+    set {_gui} to new chest inventory with 4 rows named "&b&lChat Rules"
+    set {_bg} to 0
+    loop 54 times:
+      if slot {_bg} of {_gui} is air:
+        set slot {_bg} of {_gui} to black stained glass pane named " "
+      add 1 to {_bg}
+    set slot 10 of {_gui} to paper named "&d&lNo Spamming" with lore "&8&m------------------------------", "&7Avoid flooding the chat with repeated messages or emojis.", "&7Includes private messages or commands.", "&cPunishment: &7Mute."
+    set slot 12 of {_gui} to paper named "&d&lKeep Chat Appropriate" with lore "&8&m------------------------------", "&7Do not use offensive or disrespectful language.", "&7Examples: Racism, sexism, or vulgarity.", "&cPunishment: &7Mute or temporary ban."
+    set slot 14 of {_gui} to paper named "&d&lNo Toxic Behavior" with lore "&8&m------------------------------", "&7Avoid toxic actions like insults or threats.", "&7Maintain a respectful and fun environment.", "&cPunishment: &7Mute or warning."
+    set slot 16 of {_gui} to paper named "&d&lNo Advertising" with lore "&8&m------------------------------", "&7Do not promote other servers or content.", "&cPunishment: &7Mute or temporary ban."
+    set slot 31 of {_gui} to barrier named "&b&lGo Back" with lore "&7Click to return to the categories menu."
+    open {_gui} to player
+on inventory click:
+  if name of event-inventory is "&b&lChat Rules":
+    cancel event
+    if clicked slot is 31:
+      execute player command "rules"
