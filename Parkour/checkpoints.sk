@@ -1,1 +1,101 @@
+#===========================================================
+#                        Checkpoints v 0.1
+#                           QndreiYT_69
+#===========================================================
 
+#===========================================================
+#                         Description
+#                    Simple CheckPoint System
+#                         For Parkour
+#============================================================
+
+variables:
+	{checkpoint.%player%} = 0
+	{checkpoint.global} = 0
+	
+	
+#checkpoints
+
+command /checkpointbuy <player>:
+	trigger:
+		message "&aYou can buy personal checkpoints at &ehttps://yoursite.com" to player-argument 
+
+command /checkpointh <player>:
+	executable by: console
+	trigger:
+		player-argument's balance is less than 25:
+			message "&cYou do not have enough tickets!"
+			stop
+		
+		set {checkpoint.%player-argument%.active} to 1
+		set {parkour.checkpoint.%player-argument%} to location of player-argument
+		message "&aYour Checkpoint has been set!" to player-argument
+		remove 25 tickets from player-argument's balance
+		message "&aYou have been charged &e25 &atickets. You now have &e%player-argument's balance% &aleft." to player-argument
+		add 1 to {checkpoint.global}
+	
+
+
+command /checkpoint:
+	executable by: player
+	permission: checkpoints.free
+	aliases: /cp
+	trigger:
+		world is "parkourmaps":
+		
+			if {checkpoint.%player%} is 0:
+		
+				message "&cYou do not have enough available Checkpoints for this!" to player
+				message "&cPurchase more at &ehttps://yoursite.com" to player
+				stop
+				
+			set {checkpoint.%player%.active} to 1
+			set {parkour.checkpoint.%player%} to location of player
+			set {checkpoint.%player%} to {checkpoint.%player%} - 1
+			message "&aYour Checkpoint has been set! You now have &e%{checkpoint.%player%}% &a remaining!" to player
+			message "&aPlease use &e/parkour &ato return to the lobby."
+			add 1 to {checkpoint.global}
+		else:
+			message "&cYou can not do that here!" to player
+		
+		
+#debug
+#givecheckpoints
+command /givec <player> <number>:
+	permission: checkpoints.admin
+	trigger:
+		player is op
+		add argument 2 to {checkpoint.%player-argument%}
+		message "&aYou received &e%argument 2% &aCheckpoints!" to player-argument
+		
+#checkpointbalance
+command /cpbalance:
+	permission: parkour.free
+	trigger:
+		message "&aYou have &e%{checkpoint.%player%}% &acheckpoints!" to player
+		
+command /checkset <text> <integer>:
+	permission: checkpoints.admin
+	trigger:
+		set {checkpoint.%argument 1%} to argument 2
+		send "&aYou have set &e%argument 1%'s &acheckpoint balance to &e%argument 2%" to player
+		
+command /checkreset <text>:
+	permission: checkpoints.admin
+	trigger:
+		set {checkpoint.%argument%} to 0
+		send "&aYou have reset &e%argument%'s &acheckpoint balance!" to player
+		
+command /cpcheck <text>:
+	permission: checkpoints.admin
+	trigger:
+		{checkpoint.%argument%} is not set:
+			send "&e%argument%&a has &e0&a checkpoints." to player
+			stop
+		send "&e%argument%&a has &e%{checkpoint.%argument%}%&a checkpoints." to player
+		
+
+		
+		
+		
+		
