@@ -1,0 +1,47 @@
+# █████╗ ███████╗██╗  ██╗    ██████╗  ██████╗  ██████╗ ██╗     
+#██╔══██╗██╔════╝██║ ██╔╝    ██╔══██╗██╔═══██╗██╔═══██╗██║     
+#███████║█████╗  █████╔╝     ██████╔╝██║   ██║██║   ██║██║     
+#██╔══██║██╔══╝  ██╔═██╗     ██╔═══╝ ██║   ██║██║   ██║██║     
+#██║  ██║██║     ██║  ██╗    ██║     ╚██████╔╝╚██████╔╝███████╗
+#╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝    ╚═╝      ╚═════╝  ╚═════╝ ╚══════╝
+#Afk Pool Skript - QndreiYT_69
+#Requires: WorldGaurd (Plus worldedit type)
+#Please have a {server.cmdname} or change the "ServerName" Option
+#You need https://github.com/SkQuery/SkQuery/releases for the skript to work
+options:
+	ver: "1.0.1"
+	AfkTime: 10
+	ServerName: "Changeme"
+	
+#AfkPool Function for rewards
+function afkpool():
+	broadcast "%{server.cmdname}% Everyone in the afk pool has just gotten Jewels"
+	loop all players:
+		if "%region at loop-player%" contains "afk":
+			#edit this part for rewards
+			set {_bb} to random integer between 50 and 200
+			if {rebirth.%loop-player's uuid%} >= 1:
+				set {_bb} to {_bb} * ({rebirth.%loop-player's uuid%} + 1)
+			add {_bb} to {jewels.%loop-player's uuid%}
+			send "%{server.cmdname}% You have gotten %{_bb}% Jewels" to loop-player
+every 1 second:
+	remove 1 from {afkpool.minutes}
+	if {afkpool.minutes} <= 0:
+		afkpool()
+		set {afkpool.minutes} to {@AfkTime}*60
+			
+on load:
+	if {@ServerName} is not "Changeme":
+		set {server.cmdname} to {@ServerName}
+	set {afkpool.progress} to 0
+	set {afkpool.minutes} to {@AfkTime}*60
+on load:
+    log "[ Afk Pool ] has been loaded!"
+    log "Version %{@ver}%"
+    log ""
+    log "   AAA   FFFFFF  KK   KK     PPPPPP   OOOOO   OOOOO  LL    "
+    log "  AA AA  FF      KK  KK      PP   PP OO   OO OO   OO LL    "
+    log " AA   AA FFFF    KKKKK       PPPPPP  OO   OO OO   OO LL    "
+    log " AAAAAAA FF      KK  KK      PP      OO   OO OO   OO LL    "
+    log " AA   AA FF      KK   KK     PP       OOOOO   OOOOO  LLLLLL"
+    log ""
