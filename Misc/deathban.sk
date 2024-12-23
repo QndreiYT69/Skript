@@ -1,0 +1,12 @@
+	on death:
+    add 1 to {deaths::%victim%}
+    if {deaths::%victim%} is greater than 9:
+        ban victim due to "You died 10 times and are now banned!"
+command /resetdeaths [<player>]:
+    permission: op
+    trigger:
+        if arg-1 is set:
+            delete {deaths::%arg-1%}
+            send "Deaths of %arg-1% have been reset." to player
+        else:
+            send "Please specify a player." to player
